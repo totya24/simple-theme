@@ -1,0 +1,70 @@
+<header>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="uk-background-primary">
+    <nav class="uk-navbar-container uk-light uk-navbar-transparent uk-padding-small uk-padding-remove-vertical"
+      uk-navbar>
+      <div class="uk-navbar-left">
+
+        <a class="uk-navbar-item uk-logo" href="{{ site.baseUrl }}">
+          [LOGO]
+        </a>
+
+        <ul class="uk-navbar-nav uk-visible@m">
+          {% set mainMenu = callStatic('MenuHandler', 'getMenuItems', {'args' : 'main'}) %}
+          {% for item in mainMenu %}
+          <li {% if item.active %}class="uk-active" {% endif %}>
+            <a href="{{ item.url }}">{{ item.title }}
+              {% if item.children %}<span class="uk-icon uk-margin-small-left"
+                uk-icon="icon: chevron-down"></span>{% endif %}
+            </a>
+            {% if item.children %}
+            <div class="uk-navbar-dropdown uk-background-dark">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                {% for child in item.children %}
+                <li {% if child.active %}class="uk-active" {% endif %}><a href="{{ child.url }}">{{ child.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="uk-navbar-right">
+        <a class="uk-navbar-toggle uk-navbar-item uk-hidden@m" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a>
+      </div>
+    </nav>
+  </div>
+</div>
+<!-- /NAV -->
+
+<!-- OFFCANVAS -->
+<div id="offcanvas-nav" data-uk-offcanvas="flip: true; overlay: false">
+  <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
+    <button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
+    <ul class="uk-nav uk-nav-default">
+      {% set mainMenu = callStatic('MenuHandler', 'getMenuItems', {'args' : 'main'}) %}
+      {% for item in mainMenu %}
+      <li class="{% if item.active %}uk-active{% endif %} {% if item.children %}uk-parent{% endif %}">
+        <a href="{{ item.url }}">{{ item.title }}
+          {% if item.children %}<span class="uk-icon uk-margin-small-left"
+            uk-icon="icon: chevron-down"></span>{% endif %}
+        </a>
+        {% if item.children %}
+        <ul class="uk-nav-sub">
+          {% for child in item.children %}
+          <li{% if child.active %}class="uk-active"{% endif %}><a href="{{ child.url }}">{{ child.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+<!-- /OFFCANVAS -->
+
+</header>

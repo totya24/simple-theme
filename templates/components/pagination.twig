@@ -1,0 +1,17 @@
+<ul class="uk-pagination uk-flex-center">
+    {% if prev %}
+    <li><a href="{{ prev }}"><span uk-pagination-previous></span></a></li>
+    {% endif %}
+    {% for link in links %}
+        <li class="{% if not link.url %}uk-disabled{% endif %}{% if link.active %}uk-active{% endif %}">
+            {% if not link.url or link.active %}
+            <span>{{ link.title|raw }}</span>
+            {% else %}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    {% if next %}
+    <li><a href="{{ next }}"><span uk-pagination-next></span></a></li>
+    {% endif %}
+</ul>

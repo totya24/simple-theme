@@ -1,0 +1,29 @@
+{% htmlcompress %}
+<!DOCTYPE html>
+<html {{ site.languageAttributes }}>
+<head>
+    <title>{{ site.title }}</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" type="text/css" media="all" href="{{ site.themeUrl }}/assets/css/style.min.css?t={{ site.cssFileTime }}" />
+    {{ site.headerContent }} 
+    {% if(site.privacyPolicyPage) %}
+    {{ include('components/cookie.twig') }}
+    {% endif %}
+</head>
+<body class="{{ site.bodyClass }}">
+    {% spaceless %}
+    {% block body %}
+    {{ include('components/header.twig') }}
+    <main role="main">
+        {% block content %}{% endblock %}
+    </main>
+    {{ include('components/footer.twig') }}
+    {% endblock body %}
+    {% endspaceless %}
+    {{ site.footerContent }}
+</body>
+</html>
+{% endhtmlcompress %}

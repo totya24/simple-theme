@@ -1,0 +1,11 @@
+{% if items %}
+<ul class="uk-breadcrumb uk-text-uppercase">
+    {% for item in items %}
+        {% if item.url %}
+        <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+        {% else %}
+        <li><span>{{ item.title }}</span></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}

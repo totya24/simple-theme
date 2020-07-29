@@ -1,0 +1,20 @@
+// 1. Your custom variables and variable overwrites.
+$main-background: #e6e3dd;
+$main-color: #111;
+
+$main-font: 'Raleway', sans-serif;
+$secondary-font: 'Crimson Text', serif;
+
+$green-light: #CAE4C3;
+$green-dark: #A9C0A3;
+$blue: #96CECD;
+
+// 2. Import default variables and available mixins.
+@import "variables-theme.scss";
+@import "mixins-theme.scss";
+
+// 4. Import UIkit.
+@import "uikit-theme.scss";
+
+// 5. Custom styles
+@import "custom/_import.scss";

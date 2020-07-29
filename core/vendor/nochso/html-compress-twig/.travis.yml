@@ -1,0 +1,26 @@
+sudo: false
+language: php
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+before_install:
+  - phpenv config-rm xdebug.ini
+install:
+  - composer install --no-interaction --prefer-dist -o
+matrix:
+  include:
+    - php: 5.6
+      env: dependencies=lowest
+    - php: 7
+      env: dependencies=lowest
+    - php: 5.6
+      env: dependencies=highest
+    - php: 7
+      env: dependencies=highest
+before_script:
+  - if [ -z "$dependencies" ]; then composer install --prefer-dist; fi;
+  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-dist --prefer-lowest -n; fi;
+  - if [ "$dependencies" = "highest" ]; then composer update --prefer-dist -n; fi;
+script:
+  - php vendor/bin/phpunit

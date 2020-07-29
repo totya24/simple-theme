@@ -1,0 +1,23 @@
+{
+  "name": "teraone/twig-strftime-extension",
+  "description": "use strftime function in  twig",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Stefan Gotre",
+      "email": "gotre@teraone.de",
+      "homepage": "https://teraone.de",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-0": {"Teraone\\Twig": "lib/"}
+  },
+  "require": {
+    "twig/twig": "1.*|~2.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.7"
+  }
+
+}

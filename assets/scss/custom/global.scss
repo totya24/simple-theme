@@ -1,0 +1,140 @@
+.uk-logo img {
+    height: 60px;
+    width: auto;
+}
+
+.tk-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.tk-background-green {
+    background-color: $green-light !important;
+    &:hover {
+        background-color: $green-dark !important;
+        color: inherit;
+    }
+}
+
+.tk-background-drops {
+    background-image: url('../img/drops.svg');
+    background-repeat: repeat-y;
+    background-position: top center;
+    background-size: 80%;
+}
+
+.tk-button-small{
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.tk-padding-xsmall {
+    padding: 10px;
+}
+
+h2.tk-heading,
+h2:not([class]) {
+    position: relative;
+    &:before {
+        content: '';
+        display: block;
+        background: url('../img/drop_alt.svg') center no-repeat;
+        background-size: contain;
+        width: 50px;
+        height: 75px;
+        position: absolute;
+        z-index: -1;
+        top: -30px;
+        left: -20px;
+    }
+}
+
+h3.tk-heading,
+h3:not([class]) {
+    position: relative;
+    &:before {
+        content: '';
+        display: block;
+        background: url('../img/drop.svg') center no-repeat;
+        background-size: contain;
+        width: 40px;
+        height: 65px;
+        position: absolute;
+        z-index: -1;
+        top: -25px;
+        left: -20px;
+    }
+}
+
+.tk-footer {
+    background-image: url('../img/footer_bg.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    padding: 180px 0 10px 0;
+    margin-top: -80px;
+}
+
+.grayscale {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    transition: all .8s;
+
+    &:hover {
+        -webkit-filter: none;
+        filter: none;
+    }
+}
+
+a {
+    transition: all .8s;
+}
+
+.tk-quote {
+    font-family: $secondary-font;
+}
+
+blockquote {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	line-height: 1.4;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-fon-smoothing: grayscale;
+}
+
+blockquote:not(.nocite) p:first-of-type:before {
+	content: '\201c';
+	position: absolute;
+    top: .5em;
+    left: -.5em;
+}
+
+blockquote:not(.nocite) p:last-of-type:after {
+	content: '\201d';
+	position: absolute;
+}
+
+blockquote i {
+    position: relative;
+    display: block;
+}
+
+blockquote i:before {
+	content: '–';
+	position: absolute;
+	left: -.6em;
+}
+
+main {
+    min-height: calc( 100vh - 287px );
+}
+
+.uk-accordion li {
+    padding-bottom: 20px;
+    border-bottom: 1px solid $global-muted-color;
+}
+.tk-empty-menu {
+    cursor: default!important;
+}
