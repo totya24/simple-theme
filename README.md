@@ -1,10 +1,17 @@
 
 # Egyszerű WordPress sablon
 
+## Core funkciók
 
-
-
-  
+A core könyvtár tartalmazza azokat az extrákat, amiket változtatni alapvetően enm akarunk, viszont soksok plugin funkcionalitását adja a sablon működéséhez. (A core könyvtárban lévő mappák az egyes funkcionalitások kiegészítői, részletezésük nem szükséges)
+* **acrhivelinks.php** : A menüszerkesztőben megjelennek az egyes custom post típusokhoz tartozó archívum linkek
+* **customlistcolumns.php** : könnyedén hozzá lehet adni az admin post típus listákhoz egyedi mezőket (extra benne, hogy a dátum elé teszi midnig őket)
+* **duplicatepost.php** : a quickmenüben (admin, post típus listák) megjelenik egy másolás gomb, amivel könnyedén lehet duplikálni bármilyen bejegyzést, metaadatokkal együtt
+* **greedo.php** : helper osztály, amiben jelenleg csak egy fancy var dump van (az util.php -ból nyúlva!)
+* **optimize.php** : alapvető extrál beállítása (head generator eltűntetése, theme support beállítás, admin bar eltűntetés)
+* **postorder.php** : sorbarendezhetővé teszi az egyes post típusokat
+* **singleton.php** : egyke pattern, amit minden használ. azért kell, mhogy az egyes constructorban megadott hook-ok szigorúan csak egyszer fussanak le
+* **wptwig.php** : TWIG támogatást megoldó kiegészítő
 
 ## TWIG sablonkezelő rendszer
 
@@ -55,6 +62,8 @@ twig_render('pages/page.twig', $data);
 {% endblock %}
 ```
 
+###
+
 ## Fájlrendszer
 
 * **.vscode** : VS Code részére létrehozott task, ami kezeli az uikit scss fordítását
@@ -92,3 +101,43 @@ node-sass --output-style compressed assets/scss/theme.scss > assets/css/style.mi
 
 #### VS Code esetén: 
 A node-sass package telepítése után: Ctrl+Shift+B -> SCSS Complie task futtatása
+
+## Beépített funkciók alkalmazása
+
+#### Post típusok sorbarendezhetősége
+A ** filter meghívásával lehet megadni, ha egy post típust sorbarendezhetővé szeretnénk tenni.
+```php
+add_filter( 'post_order_types', function($types){ $types[] = '[POST_TYPE]'; return $types; } );
+```
+
+**Lekérés módosítása**
+```php
+add_action( 'pre_get_posts', '_modifyQuery' );
+function _modifyQuery( $query ) {
+	if ( is_post_type_archive( '[POST_TYPE]' ) ) {
+    		$query->set( 'posts_per_page', '-1' );
+    		$query->set( 'orderby', 'menu_order' );
+    		$query->set( 'order', 'ASC' );
+	}
+	return $query;
+}
+```
+
+#### Custom List Columns
+Új mezőt ad hozzá az admin post listához. Használata:
+```php
+$columns = new CustomAdminListColumn([POST_TYPE], array(
+	'Bélyegkép' => function($postId){
+		echo get_the_post_thumbnail($postId, array('75','75'));
+	}
+));
+```
+
+#### Debug mód
+A **/?debug=1** GET paraméter alkalmazása esetén megjelennek a NOTICE és WARNING típusú hibaüzenetek is, továbbá az admin bar.
+
+#### Fancy var_dump
+Szebb és értelmezhetőbb var_dump-ot kapunk a következő módon:
+```php
+Greedo::var_dump($barmi);
+```
