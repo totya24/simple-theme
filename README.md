@@ -33,7 +33,6 @@ get_header()
 the_post();
 ?>
 <main>
-<div class="ez-a-tartalom">
 <h1><?phh the_title(); ?></h1>
 <div><?php the_content(); ?></div>
 </main>
