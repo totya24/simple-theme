@@ -14,3 +14,9 @@
 <body <?php body_class(); ?>>
 
 <?php get_template_part('template-parts/nav'); ?>
+
+<div class="uk-container">
+    <div class="uk-margin-top">
+    <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
+    </div>
+</div>

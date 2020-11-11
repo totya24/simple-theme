@@ -1,10 +1,10 @@
-<?php
+<?php get_header(); 
 
 the_post();
-
-$data = array(
-    'title' => get_the_title(),
-    'content' => apply_filters('the_content', get_the_content())
-);
-
-twig_render('pages/page.twig', $data);
+?>
+<div class="uk-container">
+    <div class="uk-padding uk-padding-remove-horizontal">
+        <?php the_content(); ?>
+    </div>
+</div>
+<?php get_footer(); ?>

@@ -25,7 +25,7 @@ Class ThemeFunctions extends Singleton
         return 'data:image/gif;base64,R0lGODlhAQABAAAAACw='; //1x1 transparent blank image
     }
 
-    public static function paginator( $range = 4 )
+    public static function paginator( $range = 4, $echo = true )
     {
         global $paged, $wp_query;
     
@@ -96,14 +96,13 @@ Class ThemeFunctions extends Singleton
                     );  
                 }
             }
-    
+
             if($paged < $max_page){
                 $data['next'] = get_pagenum_link($paged+1);
             }
         }
 
-        $view = tr_view('components.pagination', $data);
-        return $view->load(false);
+        return $data;
     }
 
     public static function breadcrumbs() {
@@ -191,9 +190,8 @@ Class ThemeFunctions extends Singleton
             }
         }
         $data = apply_filters( 'breadcrumbs_items', $data );
-        $data['items'] = $data;
-        $view = tr_view('components.breadcrumbs', $data);
-        return $view->load( false );
+        
+        return $data;
     }
 }
 

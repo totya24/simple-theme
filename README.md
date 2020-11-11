@@ -35,3 +35,10 @@ node-sass --output-style compressed assets/scss/theme.scss > assets/css/style.mi
 
 #### VS Code esetén: 
 A node-sass package telepítése után: Ctrl+Shift+B -> SCSS Complie task futtatása
+
+## TODO
+    * Kapcsolat form
+    * Piklist példakódok
+        * Custom post type & custom taxonomy
+        * Shortcode
+        * 

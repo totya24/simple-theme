@@ -17,7 +17,7 @@ Class Assets extends Singleton
             wp_enqueue_script( 'uikit', $this->themeUri . '/assets/js/uikit.min.js', [], '1.0', true );
             wp_enqueue_script( 'uikit-icons', $this->themeUri . '/assets/js/uikit-icons.min.js', [], '1.0', true );
             
-            wp_register_script( 'theme', $this->themeUri . '/assets/js/theme.js', [], '1.1', true  );
+            wp_register_script( 'theme', $this->themeUri . '/assets/js/scripts.js', [], '1.1', true  );
             wp_enqueue_script( 'theme' );
 
             wp_enqueue_style( 'uikit', $this->themeUri . '/assets/css/style.css' );
@@ -25,7 +25,7 @@ Class Assets extends Singleton
     }
 
     public function addAdminScriptsStyles() {
-        wp_enqueue_style('admin-style', $this->themeUri . '/wordpress/assets/css/admin.css');
+        wp_enqueue_style('admin-style', $this->themeUri . '/assets/css/admin.css');
         wp_enqueue_script('admin-script', $this->themeUri . '/assets/js/admin.js', [], '1.0', true);
     }
 }
