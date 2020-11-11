@@ -20,7 +20,7 @@ Class Assets extends Singleton
             wp_register_script( 'theme', $this->themeUri . '/assets/js/scripts.js', [], '1.1', true  );
             wp_enqueue_script( 'theme' );
 
-            wp_enqueue_style( 'uikit', $this->themeUri . '/assets/css/style.css' );
+            wp_enqueue_style( 'uikit', $this->themeUri . '/assets/css/style.min.css' );
 		}
     }
 
