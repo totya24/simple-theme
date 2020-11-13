@@ -4,7 +4,7 @@ Name: Google térkép
 Description: Oldalba beágyazott google térkép a megadott cím alapján
 Shortcode: googlemap
 Icon: dashicons-location-alt
-Inline: true
+Inline: false
 */
 
 piklist('field', array(

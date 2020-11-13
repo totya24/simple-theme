@@ -15,8 +15,12 @@
 
 <?php get_template_part('template-parts/nav'); ?>
 
+<main uk-height-viewport="expand: true">
+
+<?php if(!is_front_page()){ ?>
 <div class="uk-container">
     <div class="uk-margin-top">
     <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
     </div>
 </div>
+<?php } ?>

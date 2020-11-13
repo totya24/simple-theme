@@ -31,7 +31,7 @@ Class ContactForm extends Singleton
         }
         
         if(!empty($errors)){
-            wp_send_json_error( array('errors' => $errors) );
+            wp_send_json_error( ['errors' => $errors] );
         }
 
         $mailContent = '<h2>Szép napot!</h2><br><p>Megkeresés érkezett a weboldal kapcsolati űrlapját használva.</p><br>'

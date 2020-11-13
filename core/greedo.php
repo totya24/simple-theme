@@ -191,6 +191,11 @@ Class Greedo
         return $html;
     }
 
+    public static function mb_ucfirst($string)
+    {
+        return mb_strtoupper(mb_substr($string, 0, 1)).mb_strtolower(mb_substr($string, 1));
+    }
+
     public static function wp_dump( $data )
     {
         add_action( 'admin_notices', function() use ($data){
@@ -200,12 +205,63 @@ Class Greedo
         } );
     }
 
+    public static function wp_notice($content = '', $type = 'success', $is_dismissible = true)
+    {
+        add_action('admin_notices', function() use ($content, $type, $is_dismissible){
+            echo '<div class="notice notice-'.$type.' '.($is_dismissible ? 'is-dismissible' : '').'"><p>'.$content.'</p></div>';
+        });
+    }
+
+    public static function wp_success($content, $is_dismissible = true)
+    {
+        self::wp_notice($content, 'success', $is_dismissible);
+    }
+
+    public static function wp_warning($content, $is_dismissible = true)
+    {
+        self::wp_notice($content, 'warning', $is_dismissible);
+    }
+
+    public static function wp_info($content, $is_dismissible = true)
+    {
+        self::wp_notice($content, 'info', $is_dismissible);
+    }
+
+    public static function wp_error($content, $is_dismissible = true)
+    {
+        self::wp_notice($content, 'error', $is_dismissible);
+    }
+
+    public static function firstKey($array)
+    {
+        foreach($array as $key => $unused) {
+            return $key;
+        }
+        return NULL;
+    }
+
+    public static function arrayMapDeep($array, $callback, $on_nonscalar = false)
+    {
+        if(!is_array($array)) return $array;
+        
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $args = array($value, $callback, $on_nonscalar);
+                $array[$key] = call_user_func_array(array(__CLASS__, __FUNCTION__), $args);
+            } elseif (is_scalar($value) || $on_nonscalar) {
+                $array[$key] = call_user_func($callback, $key, $value);
+            }
+        }
+
+        return $array;
+    }
+
     public static function postLabels( $singular, $plural )
     {
         $lS = mb_strtolower( $singular );
-        $uS = ucfirst( $lS );
+        $uS = self::mb_ucfirst( $lS );
         $lP = mb_strtolower( $plural );
-        $uP = ucfirst( $lP );
+        $uP = self::mb_ucfirst( $lP );
 		
         $labels = array(
             'name'=> $uP,
@@ -253,6 +309,29 @@ Class Greedo
             'name_admin_bar' => $uP,
         );
         return $labels;
+    }
+
+    public static function generateCSV($data = [], $filename = '', $download = true, $delimiter = ';')
+    {
+        //TODO, lekezelni, ha nem letölti
+        $out = fopen('php://output', 'w');
+        fputs($out, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) )); //utf-8 BOM
+        ob_start();
+        if(is_array($data)){
+            foreach ($data as $row) {
+                fputcsv($out, $row, $delimiter);
+            }
+        }
+        fclose($out);
+        $csv = ob_get_clean();
+
+        $filename = !empty($filename) ? $filename : ('export_'.date("Y-m-d_H-i",time()).'.csv');
+        header("Content-type: application/vnd.ms-excel");
+        header("Content-disposition: csv" . date("Y-m-d") . ".csv");
+        header( "Content-disposition: filename=".$filename);
+        echo $csv;
+        exit;
+
     }
 
 }

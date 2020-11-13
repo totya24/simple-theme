@@ -10,9 +10,6 @@ Class ThemeFunctions extends Singleton
          */
         //add_image_size( 'slider', 300, 300, true);
 
-        /**
-         * Ez a kódrészlet azt valósítja meg, hogy ne rontsa le a wordpress a képek minőségét
-         */
         add_filter( 'jpeg_quality', function() { return 100;} );
     }
 
@@ -33,7 +30,7 @@ Class ThemeFunctions extends Singleton
             $max_page = $wp_query->max_num_pages;
         }
     
-        $data = array();
+        $data = [];
 
         if ( $max_page > 1 ) {
             if ( !$paged ) $paged = 1;
@@ -44,18 +41,18 @@ Class ThemeFunctions extends Singleton
 
             if ( $max_page > $range + 1 ) {
                 if ( $paged >= $range ){
-                    $data['links'][] = array(
+                    $data['links'][] = [
                         'active' => false,
                         'url' => get_pagenum_link(1),
                         'title' => '1'
-                    );
+                    ];
                 }
 
                 if ( $paged >= ($range + 1) ) {
-                    $data['links'][] = array(
+                    $data['links'][] = [
                         'active' => false,
                         'title' => '&hellip;'
-                    );
+                    ];
                 }
             }
     
@@ -76,24 +73,24 @@ Class ThemeFunctions extends Singleton
             }
             
             for ( $i = $i_start; $i <= $i_end; $i++ ) {
-                $data['links'][] = array(
+                $data['links'][] = [
                     'active' => ( $i == $paged ),
                     'url' => get_pagenum_link($i),
                     'title' => $i
-                );
+                ];
             }
 
             if ( $max_page > $range + 1 ) {
                 if ( $paged <= $max_page - ($range - 1) ) {
-                    $data['links'][] = array(
+                    $data['links'][] = [
                         'active' => false,
                         'title' => '&hellip;'
-                    );
-                    $data['links'][] = array(
+                    ];
+                    $data['links'][] = [
                         'active' => false,
                         'url' => get_pagenum_link($max_page),
                         'title' => $max_page
-                    );  
+                    ];
                 }
             }
 
@@ -106,17 +103,17 @@ Class ThemeFunctions extends Singleton
     }
 
     public static function breadcrumbs() {
-        $data = array();
+        $data = [];
         if (!is_front_page()) {
             global $post;
         
         $homeTitle = 'Kezdőlap';
 
         // Start the breadcrumb with a link to your homepage
-            $data[] = array(
+            $data[] = [
                 'title' => $homeTitle,
                 'url' => get_option('home')
-            );
+            ];
         
         // Check if the current page is a category, an archive or a single page. If so show the category or archive name.
             if (is_archive() || is_single()){
@@ -135,10 +132,10 @@ Class ThemeFunctions extends Singleton
                     }
                 }
 
-                $data[] = array(
+                $data[] = [
                     'title' => $title,
                     'url' => $url
-                );
+                ];
 
                 
             }
@@ -156,23 +153,23 @@ Class ThemeFunctions extends Singleton
                 $parents = get_post_ancestors($post);
                 if(!empty($parents)){
                     foreach($parents as $parent){
-                        $data[] = array(
+                        $data[] = [
                             'title' => get_the_title($parent),
                             'url' => get_permalink($parent)
-                        );
+                        ];
                     }
                 }
 
-                $data[] = array(
+                $data[] = [
                     'title' => get_the_title()
-                );
+                ];
             }
 
             if (is_tax()) {
                 $taxonomy = get_queried_object();
-                $data[] = array(
+                $data[] = [
                     'title' => ucfirst($taxonomy->name)
-                );
+                ];
             }
         
         // if you have a static page assigned to be you posts list page. It will find the title of the static page and display it. i.e Home >> Blog
@@ -182,9 +179,9 @@ Class ThemeFunctions extends Singleton
                 if ( $page_for_posts_id ) { 
                     $post = get_page($page_for_posts_id);
                     setup_postdata($post);
-                    $data[] = array(
+                    $data[] = [
                         'title' => get_the_title()
-                    );
+                    ];
                     rewind_posts();
                 }
             }

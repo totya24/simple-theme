@@ -8,7 +8,7 @@ Class Assets extends Singleton
     {
         $this->themeUri = get_template_directory_uri();
 
-        add_action('wp_enqueue_scripts', array($this, 'addScriptsStyles'));
+        add_action('wp_enqueue_scripts', [$this, 'addScriptsStyles']);
         //add_action('admin_enqueue_scripts', array($this, 'addAdminScriptsStyles'));
     }
 

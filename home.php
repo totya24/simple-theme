@@ -8,6 +8,7 @@ if ( have_posts() ) {
         <div class="uk-card uk-card-default uk-card-body uk-margin-top">
             <h3 class="uk-card-title"><?php the_title(); ?></h3>
             <div><?php the_content(); ?></div>
+            <a href="<?php the_permalink(); ?>">Bővebben</a>
         </div>
         <?php
     }
